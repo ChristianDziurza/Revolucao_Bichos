@@ -1,18 +1,37 @@
 package Animais;
 import Itens.*;
+import java.util.*;
 
 public abstract class Animal {
-    int vida, dano, overhealth;
+    int vida, overhealth, raridade, preco;
+    Number dano;
     boolean morto;
-    Item item;
+    Item equipamento;
+    List<Consumivel> consumivel;
 
-    //ta, por agora a gente precisa de uma main, de criar os vetores e preencher e dai
-    //fazer uma simulaçao de combate, só pra ter um prototipo pq dai a parte dos vetores
-    //vai pra uma classe própria ou metodo pra ficar melhor e o combate tambem
-    //to klskjkjsjksjsk
-    //é que quando voce abre uma janela diferente eu não posso fazer nada
+    public Item getEquipamento() {
+        return equipamento;
+    }
 
+    public void setEquipamento(Item equipamento) {
+        this.equipamento = equipamento;
+    }
 
+    public int getPreco() {
+        return preco;
+    }
+
+    public void setPreco(int preco) {
+        this.preco = preco;
+    }
+
+    public int getRaridade() {
+        return raridade;
+    }
+
+    public void setRaridade(int raridade) {
+        this.raridade = raridade;
+    }
 
     public int getOverhealth() {
         return overhealth;
@@ -42,10 +61,21 @@ public abstract class Animal {
         this.vida = vida;
     }
 
-    public int Ataque(){
-        return dano;
+    public Number Ataque(){
+        Integer danoTotal = dano.intValue();
+        if(equipamento.getClass() == ItemAtaque.class){//
+            danoTotal += equipamento.Efeito().intValue();
+        }
+        for(Consumivel consumivel1: consumivel) {
+            if (consumivel1.getemUso() == true) {
+                danoTotal += consumivel1.Efeito().intsValue()[0];
+            }
+        }
+        return danoTotal;
+
     }
 
+    public abstract void IniciaTurno();
     public abstract void LevaDano(int x);
     public abstract void Morte();
     public abstract void Especial();

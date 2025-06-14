@@ -4,25 +4,25 @@ package Animais;
  * Este Enum é utilizado para a geração de animais de uma maneira
  * mais universal e generica
  * @author Gabo K.S.
- * @version 1.0
+ * @version 0.2
  */
 
 public enum TiposAnimais {
-    PASSARO(10, 3){
+    PASSARO(10, 3, 1){
         @Override
         public Animal setAams() {
              return new Passaro();
         }
     },
     //teste
-    DINOSSAURO(100, 1){
+    DINOSSAURO(100, 1, 1){
         @Override
         public Animal setAams() {
             return new Dinossauro();
         }
     },
 
-    VOMBATE(40, 1){
+    VOMBATE(40, 1, 1){
         @Override
         public Animal setAams() { return new Vombate(); }
     };
@@ -30,6 +30,7 @@ public enum TiposAnimais {
 
     private int vida;
     private int dano;
+    private int raridade;
     private Animal aams;
 
     /**
@@ -39,9 +40,10 @@ public enum TiposAnimais {
      * @param vida1 que definira vida
      * @param dano1 que definira dano
      */
-    TiposAnimais(int vida1, int dano1){
+    TiposAnimais(int vida1, int dano1, int raridade){
         this.vida = vida1;
         this.dano = dano1;
+        this.raridade = raridade;
     }
 
     /**
@@ -64,6 +66,7 @@ public enum TiposAnimais {
         Animal animal = setAams();
         animal.setDano(dano);
         animal.setVida(vida);
+        animal.setRaridade(raridade);
         return animal;
     }
 

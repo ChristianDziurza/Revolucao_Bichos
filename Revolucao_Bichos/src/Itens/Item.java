@@ -1,7 +1,5 @@
-package Itens;
+package Itens;//entendi
 
 public interface Item {
-    boolean temItem = false;
-    public void Efeito();
-    public boolean hasItem();
+    public Number Efeito();
 }

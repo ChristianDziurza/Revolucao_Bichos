@@ -1,5 +1,6 @@
 package Jogo;
 import Animais.*;
+import Itens.*;
 import java.util.Scanner;
 
 /**
@@ -13,7 +14,7 @@ public class Equipe {
     Animal[] animais = new Animal[3];
 
     /**
-     * Esse método verifica se a party está cheia
+     * Esse método verifica se a equipe está cheia
      * @return o boleano da verificação
      */
     public boolean isFull(){
@@ -27,7 +28,7 @@ public class Equipe {
     }
 
     /**
-     * Neste metódo verifica se a party tem mais de um membro para trocas
+     * Neste metódo verifica se a equipe tem mais de um membro para trocas
      * ou remoção de membros
      * @return o boleano da equação
      */
@@ -166,6 +167,45 @@ public class Equipe {
         }
         else{
             System.out.println("Não tem o suficiente");
+        }
+    }
+
+    public void insereEquipamento(int pos, Item equipamento){
+        boolean semException = false;
+        Scanner scanner = new Scanner(System.in);
+        while (!semException){
+            semException = true;//
+            try {
+                if((animais[pos] != null)){
+                    animais[pos].setEquipamento(equipamento);
+                    System.out.println("Inserido com sucesso");
+                }
+                else{
+                    System.out.println("Nao tem animal");
+                    semException = false;
+                }
+            }catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Insira um numero adequado");
+                pos = scanner.nextInt();
+                semException = false;
+            }
+        }
+    }
+    public void imprimeEquipe(){
+
+        for(Animal as: animais){
+            try{
+            System.out.print("Animal: ");
+            System.out.println(as.getClass());
+            if(as.getEquipamento() != null) {
+                System.out.print("Item: ");
+                System.out.println(as.getEquipamento());
+            }else{//
+                System.out.println("Não possui equipamento");
+            }
+        }catch(NullPointerException e){//pode ser então, vamo faze a lista
+                System.out.println("Não tem ninguém");
+        }
         }
     }
 }

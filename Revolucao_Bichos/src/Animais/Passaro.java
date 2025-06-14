@@ -2,10 +2,13 @@ package Animais;
 
 public class Passaro extends Animal{
     @Override
+    public void IniciaTurno() {
+
+    }
+
+    @Override
     public void LevaDano(int x) {
-        if(item.hasItem()){
-            item.Efeito();
-        }
+
         setVida(vida-x);
         System.out.println("Vida atual: " + vida);
         if(vida <= 0){
