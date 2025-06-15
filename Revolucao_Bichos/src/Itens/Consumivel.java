@@ -12,7 +12,7 @@ public class Consumivel implements Item{
         this.defesa = defesa;
     }
 
-    public boolean getemUso(){
+    public boolean geItemUso(){
         return emUso;
     }
 

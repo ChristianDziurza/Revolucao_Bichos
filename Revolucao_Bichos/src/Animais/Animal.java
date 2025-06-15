@@ -67,7 +67,7 @@ public abstract class Animal {
             danoTotal += equipamento.Efeito().intValue();
         }
         for(Consumivel consumivel1: consumivel) {
-            if (consumivel1.getemUso() == true) {
+            if (consumivel1.geItemUso() == true) {
                 danoTotal += consumivel1.Efeito().intsValue()[0];
             }
         }
