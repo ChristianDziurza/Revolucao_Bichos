@@ -66,18 +66,24 @@ public abstract class Animal {
         if(equipamento.getClass() == ItemAtaque.class){//
             danoTotal += equipamento.Efeito().intValue();
         }
+        /*
         for(Consumivel consumivel1: consumivel) {
             if (consumivel1.geItemUso() == true) {
                 danoTotal += consumivel1.Efeito().intsValue()[0];
             }
         }
+         */
         return danoTotal;
 
+    }
+    public boolean Morte(){
+        morto = true;
+        return morto;
     }
 
     public abstract void IniciaTurno();
     public abstract void LevaDano(int x);
-    public abstract void Morte();
+
     public abstract void Especial();
 
 }

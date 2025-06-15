@@ -11,10 +11,7 @@ public class Dinossauro extends Animal{
 
     }
 
-    @Override
-    public void Morte() {
 
-    }
 
     @Override
     public void Especial(){

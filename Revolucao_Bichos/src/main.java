@@ -1,15 +1,19 @@
 import Animais.*;
 import Itens.TipoItem;
 import Jogo.Equipe;
+import Jogo.EstadoCombate;
 
 import java.util.*;
 public class main {
     public static void main(String[] args) {
+        int contadorRodada = 1;
+        EstadoCombate combate = new EstadoCombate();
+
         Equipe equipe1 = new Equipe();
         Equipe equipe2 = new Equipe();
         criaArray(equipe1);
         criaArray(equipe2);
-        //é exatamente isso que eu vou fazer
+
         equipe1.insereEquipamento(0,TipoItem.A_ESPADABASICA.criaItem());
         equipe1.insereEquipamento(1,TipoItem.A_GENERICO.criaItem());
         equipe1.insereEquipamento(2,TipoItem.A_GENERICO.criaItem());
@@ -24,13 +28,19 @@ public class main {
         System.out.println("Animais B:");
         equipe2.imprimeEquipe();
 
-        equipe1.alteraParty(0,1);
-        equipe2.removeParty(1);
-        System.out.println("Animais A:");
-        equipe1.imprimeEquipe();
-        System.out.println();//eu to pensando nisso, mas em qual classe
-        System.out.println("Animais B:");
-        equipe2.imprimeEquipe();
+        System.out.println();
+
+        combate.iniciaCombate();
+        //Arrumar esse while para o combate funcionar de verdade
+        //Desculpa luis não fiz muito
+        while(!(equipe1.isNull()) || !(equipe2.isNull())){
+            System.out.println("Rodada "+contadorRodada);
+            combate.rodada(equipe1,equipe2);
+            contadorRodada++;
+        }
+
+
+
 
     }
     public static void criaArray(Equipe e1){

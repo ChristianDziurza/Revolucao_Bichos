@@ -26,6 +26,19 @@ public class Equipe {
         }
         return isfull;
     }
+    /**
+     * Esse método verifica se a equipe está vazia
+     * @return o boleano da verificação
+     */
+    public boolean isNull(){
+        boolean isNull = true;
+        for(Animal animal : animais){
+            if(animal != null){
+                isNull = false;
+            }
+        }
+        return isNull;
+    }
 
     /**
      * Neste metódo verifica se a equipe tem mais de um membro para trocas
@@ -203,9 +216,19 @@ public class Equipe {
             }else{//
                 System.out.println("Não possui equipamento");
             }
-        }catch(NullPointerException e){//pode ser então, vamo faze a lista
+        }catch(NullPointerException e){
                 System.out.println("Não tem ninguém");
         }
         }
+    }
+    public Animal primeiroAnimal(){
+        Animal pos;
+        int i = 0;
+        pos = animais[i];
+        if(animais[i].Morte()) {
+            i++;
+            pos = animais[i];
+        }
+        return pos;
     }
 }

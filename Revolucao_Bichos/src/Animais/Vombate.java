@@ -12,10 +12,7 @@ public class Vombate extends Animal{
 
     }
 
-    @Override
-    public void Morte() {
 
-    }
 
     @Override
     public void Especial(){
