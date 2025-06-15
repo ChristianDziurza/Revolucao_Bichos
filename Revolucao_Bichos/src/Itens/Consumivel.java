@@ -8,7 +8,7 @@ public class Consumivel implements Item{
     private int defesa;
 
     public Consumivel(int dano, int defesa){
-        this.dano = dano;//gabo vou comer já volto
+        this.dano = dano;
         this.defesa = defesa;
     }
 
