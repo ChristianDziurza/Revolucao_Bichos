@@ -61,6 +61,10 @@ public abstract class Animal {
         this.vida = vida;
     }
 
+    public void addConsumivel(Consumivel consumivel1) {
+        this.consumivel.add(consumivel1);
+    }
+
     public Number Ataque(){
         Integer danoTotal = dano.intValue();
         if(equipamento.getClass() == ItemAtaque.class){//

@@ -1,6 +1,8 @@
 package Jogo;
 import Animais.*;
 import Itens.*;
+
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -203,6 +205,29 @@ public class Equipe {
                 semException = false;
             }
         }
+    }
+    public void insereConsumivel(int pos, Consumivel consumivel){
+        boolean semException = false;
+        Scanner scanner = new Scanner(System.in);
+        while (!semException){
+            semException = true;
+            try {
+                if((animais[pos] != null)){
+                    animais[pos].addConsumivel(consumivel);
+                    System.out.println("Inserido com sucesso");
+
+                }
+                else{
+                    System.out.println("Nao tem animal");
+                    semException = false;
+                }
+            }catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Insira um numero adequado");
+                pos = scanner.nextInt();
+                semException = false;
+            }
+        }
+
     }
     public void imprimeEquipe(){
 
