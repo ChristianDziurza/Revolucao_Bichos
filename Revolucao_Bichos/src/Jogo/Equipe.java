@@ -225,10 +225,20 @@ public class Equipe {
         Animal pos;
         int i = 0;
         pos = animais[i];
-        if(animais[i].Morte()) {
-            i++;
-            pos = animais[i];
+        System.out.println(animais[i]);
+        while (animais[i].isMorto()&&i<4){
+                i++;
+                pos = animais[i];
         }
+        System.out.println(animais[i]);
         return pos;
+    }
+    public boolean allMorto(){
+        for (Animal animal : animais){
+           if (!animal.isMorto()){
+               return false;
+           }
+        }
+        return true;
     }
 }

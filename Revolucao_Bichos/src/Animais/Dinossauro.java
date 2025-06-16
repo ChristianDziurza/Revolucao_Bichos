@@ -8,7 +8,10 @@ public class Dinossauro extends Animal{
 
     @Override
     public void LevaDano(int x) {
-
+        setVida(vida-x);
+        if(vida <= 0){
+            Morte();
+        }
     }
 
 

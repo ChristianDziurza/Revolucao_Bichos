@@ -33,13 +33,12 @@ public class main {
         combate.iniciaCombate();
         //Arrumar esse while para o combate funcionar de verdade
         //Desculpa luis não fiz muito
-        while(!(equipe1.isNull()) || !(equipe2.isNull())){
+        while(combate.getAtivo()){
             System.out.println("Rodada "+contadorRodada);
             combate.rodada(equipe1,equipe2);
             contadorRodada++;
+
         }
-
-
 
 
     }

@@ -8,21 +8,21 @@ package Animais;
  */
 
 public enum TiposAnimais {
-    PASSARO(10, 3, 1){
+    PASSARO(5, 3, 1){
         @Override
         public Animal setAams() {
              return new Passaro();
         }
     },
     //teste
-    DINOSSAURO(100, 1, 1){
+    DINOSSAURO(50, 1, 1){
         @Override
         public Animal setAams() {
             return new Dinossauro();
         }
     },
 
-    VOMBATE(40, 1, 1){
+    VOMBATE(20, 1, 1){
         @Override
         public Animal setAams() { return new Vombate(); }
     };
