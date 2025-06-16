@@ -1,6 +1,8 @@
 package Jogo;
 import Animais.*;
 import Itens.*;
+
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -30,15 +32,6 @@ public class Equipe {
      * Esse método verifica se a equipe está vazia
      * @return o boleano da verificação
      */
-    public boolean isNull(){
-        boolean isNull = true;
-        for(Animal animal : animais){
-            if(animal != null){
-                isNull = false;
-            }
-        }
-        return isNull;
-    }
 
     /**
      * Neste metódo verifica se a equipe tem mais de um membro para trocas
@@ -204,12 +197,35 @@ public class Equipe {
             }
         }
     }
+    public void insereConsumivel(int pos, Consumivel consumivel){
+        boolean semException = false;
+        Scanner scanner = new Scanner(System.in);
+        while (!semException){
+            semException = true;
+            try {
+                if((animais[pos] != null)){
+                    animais[pos].addConsumivel(consumivel);
+                    System.out.println("Inserido com sucesso");
+
+                }
+                else{
+                    System.out.println("Nao tem animal");
+                    semException = false;
+                }
+            }catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Insira um numero adequado");
+                pos = scanner.nextInt();
+                semException = false;
+            }
+        }
+
+    }
     public void imprimeEquipe(){
 
         for(Animal as: animais){
             try{
             System.out.print("Animal: ");
-            System.out.println(as.getClass());
+            System.out.println(as);
             if(as.getEquipamento() != null) {
                 System.out.print("Item: ");
                 System.out.println(as.getEquipamento());
@@ -225,12 +241,10 @@ public class Equipe {
         Animal pos;
         int i = 0;
         pos = animais[i];
-        System.out.println(animais[i]);
-        while (animais[i].isMorto()&&i<4){
+        while (animais[i].isMorto()&&i<3){
                 i++;
                 pos = animais[i];
         }
-        System.out.println(animais[i]);
         return pos;
     }
     public boolean allMorto(){
@@ -240,5 +254,8 @@ public class Equipe {
            }
         }
         return true;
+    }
+    public Animal[] getAnimais(){
+        return animais;
     }
 }

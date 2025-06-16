@@ -31,8 +31,6 @@ public class main {
         System.out.println();
 
         combate.iniciaCombate();
-        //Arrumar esse while para o combate funcionar de verdade
-        //Desculpa luis não fiz muito
         while(combate.getAtivo()){
             System.out.println("Rodada "+contadorRodada);
             combate.rodada(equipe1,equipe2);
