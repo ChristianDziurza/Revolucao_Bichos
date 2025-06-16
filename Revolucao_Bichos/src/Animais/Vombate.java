@@ -3,7 +3,7 @@ package Animais;
 public class Vombate extends Animal{
     @Override
     public void IniciaTurno() {
-
+        System.out.println("Não");
     }
 
     @Override
@@ -15,7 +15,7 @@ public class Vombate extends Animal{
 
 
     @Override
-    public void Especial(){
-        
+    public void Especial(Animal inim){
+        inim.setVida(inim.getVida()-(inim.Ataque().intValue()/2));
     }
 }

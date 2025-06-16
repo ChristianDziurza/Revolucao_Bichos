@@ -17,7 +17,7 @@ public enum TipoItem {
             return it;
         }
     },
-    A_GENERICO(2){
+    A_GENERICO(0){
         @Override
         public Item setItem(){
             Item it = new ItemAtaque();

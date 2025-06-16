@@ -32,15 +32,6 @@ public class Equipe {
      * Esse método verifica se a equipe está vazia
      * @return o boleano da verificação
      */
-    public boolean isNull(){
-        boolean isNull = true;
-        for(Animal animal : animais){
-            if(animal != null){
-                isNull = false;
-            }
-        }
-        return isNull;
-    }
 
     /**
      * Neste metódo verifica se a equipe tem mais de um membro para trocas
@@ -234,7 +225,7 @@ public class Equipe {
         for(Animal as: animais){
             try{
             System.out.print("Animal: ");
-            System.out.println(as.getClass());
+            System.out.println(as);
             if(as.getEquipamento() != null) {
                 System.out.print("Item: ");
                 System.out.println(as.getEquipamento());
@@ -250,12 +241,10 @@ public class Equipe {
         Animal pos;
         int i = 0;
         pos = animais[i];
-        System.out.println(animais[i]);
-        while (animais[i].isMorto()&&i<4){
+        while (animais[i].isMorto()&&i<3){
                 i++;
                 pos = animais[i];
         }
-        System.out.println(animais[i]);
         return pos;
     }
     public boolean allMorto(){
@@ -265,5 +254,8 @@ public class Equipe {
            }
         }
         return true;
+    }
+    public Animal[] getAnimais(){
+        return animais;
     }
 }

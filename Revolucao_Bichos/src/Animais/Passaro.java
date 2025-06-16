@@ -3,6 +3,7 @@ package Animais;
 public class Passaro extends Animal{
     @Override
     public void IniciaTurno() {
+        System.out.println("Não");
     }
 
     @Override
@@ -16,7 +17,10 @@ public class Passaro extends Animal{
 
 
     @Override
-    public void Especial(){
+    public void Especial(Animal inim){
 
+        if (!(inim.getDano().intValue()<=1)) {
+            inim.setDano(inim.getDano().intValue() - 1);
+        }
     }
 }

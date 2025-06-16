@@ -8,21 +8,21 @@ package Animais;
  */
 
 public enum TiposAnimais {
-    PASSARO(5, 3, 1){
+    PASSARO(5, 3, 1, "Passaro", 3){
         @Override
         public Animal setAams() {
              return new Passaro();
         }
     },
     //teste
-    DINOSSAURO(50, 1, 1){
+    DINOSSAURO(50, 1, 1, "Dinossauro", 1){
         @Override
         public Animal setAams() {
             return new Dinossauro();
         }
     },
 
-    VOMBATE(20, 1, 1){
+    VOMBATE(20, 1, 1, "Vombate", 3){
         @Override
         public Animal setAams() { return new Vombate(); }
     };
@@ -31,6 +31,8 @@ public enum TiposAnimais {
     private int vida;
     private int dano;
     private int raridade;
+    private int classificacao;
+    private String nome;
     private Animal aams;
 
     /**
@@ -40,10 +42,12 @@ public enum TiposAnimais {
      * @param vida1 que definira vida
      * @param dano1 que definira dano
      */
-    TiposAnimais(int vida1, int dano1, int raridade){
+    TiposAnimais(int vida1, int dano1, int raridade, String nome, int classificacao){
         this.vida = vida1;
         this.dano = dano1;
         this.raridade = raridade;
+        this.nome = nome;
+        this.classificacao = classificacao;
     }
 
     /**
@@ -67,6 +71,8 @@ public enum TiposAnimais {
         animal.setDano(dano);
         animal.setVida(vida);
         animal.setRaridade(raridade);
+        animal.setNome(nome);
+        animal.setClassificacao(classificacao);
         return animal;
     }
 
