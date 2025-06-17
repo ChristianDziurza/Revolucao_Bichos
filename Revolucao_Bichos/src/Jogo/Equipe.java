@@ -80,7 +80,13 @@ public class Equipe {
                  * @exception ArrayIndexOutOfBoundsException
                  */
                 try {
-                    animais[pos] = animal;
+                    if(animais[pos] == null) {
+                        animais[pos] = animal;
+                        System.out.println("Animal inserido com sucesso!!!!");
+                    }
+                    else{
+                        System.out.println("Ja esta ocupado");
+                    }
                 }
                 catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("O valor de pos está fora do escopo!!!!\n" + "Insira um novo valor:");
@@ -89,7 +95,7 @@ public class Equipe {
                     semExecption = false;
                 }
             }
-            System.out.println("Animal inserido com sucesso!!!!");
+
         }
     }
 
@@ -188,7 +194,7 @@ public class Equipe {
                 }
                 else{
                     System.out.println("Nao tem animal");
-                    semException = false;
+                    semException = true;
                 }
             }catch (ArrayIndexOutOfBoundsException e){
                 System.out.println("Insira um numero adequado");
@@ -249,8 +255,12 @@ public class Equipe {
     }
     public boolean allMorto(){
         for (Animal animal : animais){
-           if (!animal.isMorto()){
-               return false;
+           try {
+               if (!animal.isMorto()) {
+                   return false;
+               }
+           }catch (NullPointerException e){
+
            }
         }
         return true;

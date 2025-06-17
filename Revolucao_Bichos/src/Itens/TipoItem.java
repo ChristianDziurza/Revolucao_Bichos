@@ -5,6 +5,7 @@ public enum TipoItem {
         @Override
         public Item setItem(){
             Item it = new Consumivel(getVal(), getVal2());
+            ((Consumivel) it).setNome("Banana");
             return  it;
         }
     },
@@ -17,12 +18,12 @@ public enum TipoItem {
             return it;
         }
     },
-    A_GENERICO(0){
+    D_GENERICO(2){
         @Override
         public Item setItem(){
-            Item it = new ItemAtaque();
-            ((ItemAtaque) it).setDano(getVal());
-            ((ItemAtaque) it).setNome("Genérico");//roda
+            Item it = new ItemDefesa();
+            ((ItemDefesa) it).setDefesa(getVal());
+            ((ItemDefesa) it).setNome("Genérico");//roda
             return it;
         }
     };

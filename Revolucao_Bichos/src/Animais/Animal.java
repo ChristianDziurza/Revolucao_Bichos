@@ -8,7 +8,7 @@ public abstract class Animal {
     Number dano;
     boolean morto;
     Item equipamento;
-    List<Consumivel> consumivel;
+    List<Consumivel> consumivel = new ArrayList<>();
 
     public Item getEquipamento() {
         return equipamento;
@@ -78,21 +78,24 @@ public abstract class Animal {
 
     public Number Ataque(){
         int danoTotal = dano.intValue();
-        System.out.println(danoTotal);
-        if(equipamento.getClass() == ItemAtaque.class){//
-            danoTotal += equipamento.Efeito().intValue();
+        try {
+            if (equipamento.getClass() == ItemAtaque.class) {//
+                danoTotal += equipamento.Efeito().intValue();
+            }
+        }catch (NullPointerException e){
+
         }
-        System.out.println(danoTotal);
         try {
             for (Consumivel consumivel1 : consumivel) {
                 if (consumivel1.geItemUso()) {
+                    System.out.println("TEM CONSUMIVEL");
                     danoTotal += consumivel1.Efeito().intsValue()[0];
                 }
             }
         }catch(NullPointerException e){
             System.out.println("Não tem consumivel");
         }
-        System.out.println(danoTotal);
+
         return (Integer) danoTotal;
 
     }

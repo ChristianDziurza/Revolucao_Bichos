@@ -8,46 +8,61 @@ import java.util.*;
 public class Loja {
     private Animal animais[] = new Animal[2];
     private Item equipamento[] = new Item[3];
+    Player player;
 
-    public Loja(){
+    public Loja(Player player){
         refresh();
-        mostraLoja();
-
+        this.player = player;
     }
 
-    public void compraAnimal(Equipe equipe){
+    public void compraAnimal(Equipe equipe, Player p1){
         int val = 0, val2 = 0;
         boolean semException=false;
         Scanner scanner = new Scanner(System.in);
-        while(!semException || !(val < 0 && val > 1)) {
+        while(!semException || (val < 0 && val > 1)) {
             System.out.println("Seleciona o animal: ");
             semException=true;
             try {
-                val = scanner.nextInt();//ata
+                val = scanner.nextInt();//mas eu faço
             } catch (InputMismatchException e) {
                 System.out.println("Insira numero");
                 semException = false;
             }
+
         }
-        System.out.println("Insira a posicao da equipe");
-        while(!semException || !(val2 < 0 && val2 > 1)) {
-            System.out.println("Seleciona o animal: ");
-            semException=true;
-            try {
-                val2 = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Insira numero");
+        try {
+            if(p1.getDinheiro() < animais[val].getPreco()){
+                System.out.println("Nao tem dinhero");
+            }else {
                 semException = false;
+                player.gastaDinheiro(animais[val].getPreco());
+                while (!semException || (val2 < 0 && val2 > 2)) {
+                    System.out.println("Seleciona o espaço da equipe: ");
+                    semException = true;
+                    try {
+                        val2 = scanner.nextInt();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Insira numero");
+                        semException = false;
+                    }
+                }
+                Animal anima = equipe.animais[val2];
+                equipe.insereParty(val2, animais[val]);
+                if(anima == null){
+                    animais[val] = null;
+                }
             }
+        }catch (NullPointerException e){
+            System.out.println("Este animal nao esta disponivel");
+            semException = false;
         }
-        equipe.insereParty(val2, animais[val]);
 
     }
-    public void compraEquipamento(Equipe equipe){
+    public void compraEquipamento(Equipe equipe, Player p1){
         int val = 0, val2 = 0, dinheiro;
         boolean semException=false;
         Scanner scanner = new Scanner(System.in);
-        while(!semException || !(val < 0 && val > 3)) {
+        while(!semException || (val < 0 && val > 2)) {
             System.out.println("Seleciona o item: ");
             semException=true;
             try {
@@ -57,31 +72,66 @@ public class Loja {
                 semException = false;
             }
         }
-        System.out.println("Insira a posicao da equipe");
-        while(!semException || !(val2 < 0 && val2 > 1)) {
-            System.out.println("Seleciona o animal: ");
-            semException=true;
-            try {
-                val2 = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Insira numero");
+        try{
+            if(p1.getDinheiro() < equipamento[val].getPreco()){
+                System.out.println("Sem dinheiro");
+            }else {
                 semException = false;
+                player.gastaDinheiro(equipamento[val].getPreco());
+                while (!semException || (val2 < 0 && val2 > 2)) {
+                    System.out.println("Seleciona o animal: ");
+                    semException = true;
+                    try {
+                        val2 = scanner.nextInt();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Insira numero");
+                        semException = false;
+                    }
+                }
+                Item sa = equipe.animais[val2].getEquipamento();
+                if (equipamento[val].getClass() == Consumivel.class) {
+                    equipe.insereConsumivel(val2, (Consumivel) equipamento[val]);
+                    equipamento[val] = null;
+                } else {
+                    equipe.insereEquipamento(val2, equipamento[val]);
+                    if(sa == null){
+                        equipamento[val] = null;
+                    }
+
+                }
+
             }
+        }catch (NullPointerException e){
+            System.out.println("Não está disponivel este item");
+            semException = false;
         }
-        if(equipamento[val].getClass() == Consumivel.class){
-            equipe.insereConsumivel(val2, (Consumivel) equipamento[val]);
-        }else{
-            equipe.insereEquipamento(val2, equipamento[val]);
-        }
+
     }
 
     public void mostraLoja(){
+        System.out.println("Dinheiro atual $: " + player.getDinheiro());
         for(Animal animis: animais){
-            System.out.println(animis.getClass() + "\t: " + animis.getPreco());
+            try{
+                System.out.println(animis + "\t: " + animis.getPreco());
+            }catch (NullPointerException e){
+                System.out.println("X\t: X");
+            }
         }
         for (Item item : equipamento){
-            System.out.println(item.getClass() + "\t: " + item.getPreco());
+            try {
+                System.out.println(item + "\t: " + item.getPreco());
+            }catch (NullPointerException e){
+                System.out.println("X\t: X");
+            }
         }
+    }
+    public void opcoesLoja(){
+        System.out.println("O que você vai fazer?");
+        System.out.println("A - Comprar Animal");
+        System.out.println("I - Comprar Item");
+        System.out.println("R - Para atualizar a loja");
+        System.out.println("P - Ir para o próximo combate");
+
     }
 
     public void refresh() {

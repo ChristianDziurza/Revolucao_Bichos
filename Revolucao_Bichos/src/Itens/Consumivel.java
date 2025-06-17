@@ -7,6 +7,7 @@ public class Consumivel implements Item{
     private int dano;
     private int defesa;
     private int preco;
+    private String nome;
 
     public Consumivel(int dano, int defesa){
         this.dano = dano;
@@ -15,6 +16,10 @@ public class Consumivel implements Item{
 
     public boolean geItemUso(){
         return emUso;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public void fimDeUso(){
@@ -28,6 +33,11 @@ public class Consumivel implements Item{
     @Override
     public int getPreco() {
         return preco;
+    }
+
+    @Override
+    public String toString(){
+        return nome;
     }
 
 }
