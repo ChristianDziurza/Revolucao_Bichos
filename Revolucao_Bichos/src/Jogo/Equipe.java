@@ -13,7 +13,8 @@ import java.util.Scanner;
 
 
 public class Equipe {
-    Animal[] animais = new Animal[3];
+    private Animal[] animais = new Animal[3];
+
 
     /**
      * Esse método verifica se a equipe está cheia
@@ -245,12 +246,29 @@ public class Equipe {
     }
     public Animal primeiroAnimal(){
         Animal pos;
+        boolean dowhile = true;
         int i = 0;
         pos = animais[i];
-        while (animais[i].isMorto()&&i<3){
-                i++;
-                pos = animais[i];
+        while (dowhile && i<2) {
+            dowhile = false;
+            try {
+                while (animais[i].isMorto()) {
+                    if(i<2) {
+                        System.out.println("SAPO");
+                        i++;
+                        pos = animais[i];
+                    }
+                }
+            }catch (NullPointerException e){
+                if(i<2) {
+                    System.out.println("SPAOSAIO");
+                    i++;
+                    pos = animais[i];
+                }
+                dowhile = true;
+            }
         }
+
         return pos;
     }
     public boolean allMorto(){

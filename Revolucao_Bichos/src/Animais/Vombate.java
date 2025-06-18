@@ -7,6 +7,7 @@ public class Vombate extends Animal{
     @Override
     public void IniciaTurno() {
         int overhealthtotal = 0;
+        vidatotal = vida;
         try {
             if (getEquipamento().getClass() == ItemDefesa.class) {
                 overhealthtotal += getEquipamento().Efeito().intValue();
@@ -39,8 +40,13 @@ public class Vombate extends Animal{
                 x=overheal * -1;
             }
         }
-        setVida(getVida()-x/2);
-
+        int x2 = x/2;
+        if(x2<1)
+            x2 = 1;
+        setVida(getVida()-x2);
+        if(vida <= 0){
+            Morte();
+        }
     }
 
 

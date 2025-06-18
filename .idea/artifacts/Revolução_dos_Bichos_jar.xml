@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Revolução-dos-Bichos:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Revolução_dos_Bichos_jar</output-path>
+    <root id="archive" name="Revolução-dos-Bichos.jar">
+      <element id="module-output" name="Revolução-dos-Bichos" />
+    </root>
+  </artifact>
+</component>

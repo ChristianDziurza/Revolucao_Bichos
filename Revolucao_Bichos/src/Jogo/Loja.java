@@ -26,6 +26,7 @@ public class Loja {
                 val = scanner.nextInt();//mas eu faço
             } catch (InputMismatchException e) {
                 System.out.println("Insira numero");
+                val = -1;
                 semException = false;
             }
 
@@ -43,16 +44,20 @@ public class Loja {
                         val2 = scanner.nextInt();
                     } catch (InputMismatchException e) {
                         System.out.println("Insira numero");
+                        val2 = -1;
                         semException = false;
                     }
                 }
-                Animal anima = equipe.animais[val2];
+                Animal anima = equipe.getAnimais()[2];
                 equipe.insereParty(val2, animais[val]);
                 if(anima == null){
                     animais[val] = null;
                 }
             }
         }catch (NullPointerException e){
+            System.out.println("Este animal nao esta disponivel");
+            semException = false;
+        }catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Este animal nao esta disponivel");
             semException = false;
         }
@@ -69,6 +74,7 @@ public class Loja {
                 val = scanner.nextInt();//ata
             } catch (InputMismatchException e) {
                 System.out.println("Insira numero");
+                val = -1;
                 semException = false;
             }
         }
@@ -85,10 +91,11 @@ public class Loja {
                         val2 = scanner.nextInt();
                     } catch (InputMismatchException e) {
                         System.out.println("Insira numero");
+                        val2 = -1;
                         semException = false;
                     }
                 }
-                Item sa = equipe.animais[val2].getEquipamento();
+                Item sa = equipe.getAnimais()[val2].getEquipamento();
                 if (equipamento[val].getClass() == Consumivel.class) {
                     equipe.insereConsumivel(val2, (Consumivel) equipamento[val]);
                     equipamento[val] = null;

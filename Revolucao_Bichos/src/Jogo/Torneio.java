@@ -32,35 +32,50 @@ public class Torneio {
             estado = true;
     }
 
-    public void iniciaTorneio(){
+    public void iniciaTorneio() throws InterruptedException {
         contadorRodada = 1;
         player.ganhaDinheiro(4);
-
         loja = new Loja(player);
+        clearConsole();
         estadoLoja();
-
+        loopTorneio();
 
     }
-    public void loopTorneio(){
+    public void loopTorneio() throws InterruptedException {
         int contando = 0;
-        while(contando/2 < 3) {
+
+        while(contando/2 < 3 && combate.isQmganho()) {
             contando++;
             if (estado) {
+                player.criaArray(equipeIn);
                 player.ganhaDinheiro(4);
                 loja = new Loja(player);
                 estadoLoja();
             } else {
                 combate.iniciaCombate();
+                combate.trocaEquipe(equipe, equipeIn);
                 while (combate.getAtivo()) {
                     System.out.println("Rodada " + contadorRodada);
                     combate.rodada(equipe, equipeIn);
                     contadorRodada++;
+                    clearConsole();
                 }
                 trocaEstado();
             }
         }
+        fimDeJogo(combate.isQmganho());
+        combate.setQmganho(true);
+        iniciaTorneio();
     }
 
+    public void fimDeJogo(boolean qmGanho){
+        if(qmGanho){
+            System.out.println("SUA EQUIEP VENCEU!!!!!!");
+        }else{
+            System.out.println("SUA EQUIPE PERDEU!!!!!");
+            player.setDinheiro(0);
+        }
+    }
 
 
     public void estadoLoja(){
@@ -70,7 +85,6 @@ public class Torneio {
             c = scan.nextLine();
             switch (c) {
                 case "A":
-                    System.out.println();
                     loja.compraAnimal(equipe, player);
                     break;
                 case "P":
@@ -83,6 +97,19 @@ public class Torneio {
                     loja.refresh();
                     break;
             }
+            clearConsole();
+        }
+    }
+    public final static void clearConsole()
+    {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                Runtime.getRuntime().exec("clear");
+            }
+        } catch (Exception e) {
+            System.out.println("Error clearing the console: " + e.getMessage());
         }
     }
 

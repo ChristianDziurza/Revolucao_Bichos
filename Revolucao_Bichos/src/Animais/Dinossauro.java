@@ -10,6 +10,7 @@ public class Dinossauro extends Animal{
     public void IniciaTurno(Animal[] animal, Animal pos){
         int i=0, j = 0;
         int overhealthtotal = 0;
+        vidatotal = vida;
         try {
             if (getEquipamento().getClass() == ItemDefesa.class) {
                 overhealthtotal += getEquipamento().Efeito().intValue();
@@ -34,7 +35,11 @@ public class Dinossauro extends Animal{
             i++;
         }
         if(j<2){
-            animal[j+1].addConsumivel(TipoItem.C_BANANA.criaItem());
+            try {
+                animal[j+1].addConsumivel(TipoItem.C_BANANA.criaItem());
+            }catch (NullPointerException e){
+
+            }
         }
     }
 

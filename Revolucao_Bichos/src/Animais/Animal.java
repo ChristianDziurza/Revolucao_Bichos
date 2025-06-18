@@ -3,7 +3,7 @@ import Itens.*;
 import java.util.*;
 
 public abstract class Animal {
-    int vida, overhealth, raridade, preco, classificacao;
+    int vida, overhealth, raridade, preco, classificacao, vidatotal;
     String nome;
     Number dano;
     boolean morto;
@@ -100,6 +100,7 @@ public abstract class Animal {
 
     }
     public boolean Morte(){
+        vida = vidatotal;
         morto = true;
         return morto;
     }

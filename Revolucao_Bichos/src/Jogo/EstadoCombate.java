@@ -6,9 +6,10 @@ import javax.imageio.IIOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class EstadoCombate {
-    private boolean ativo = false, mortoAl=true, mortoIn=true;
+    private boolean ativo = false, mortoAl=true, mortoIn=true, qmganho = true;
     int mortecont = 0, morteinimcont = 0;
     String mortes = "Quantidade de aliados mortos: "+mortecont, mortos="Quantidade de inimigos mortos: "+morteinimcont;
 
@@ -16,22 +17,36 @@ public class EstadoCombate {
         ativo = true;
     }
 
+    public void setQmganho(boolean qmganho) {
+        this.qmganho = qmganho;
+    }
+
+    public boolean isQmganho(){ return qmganho;}
     public boolean getAtivo(){
         return ativo;
     }
-    public void terminaCombate(){ ativo = false;}
+    public void terminaCombate(Equipe eqp){
+        for(int i = 0; i<3; i++){
+            try {
+                eqp.getAnimais()[i].setMorto(true);
+            }catch (NullPointerException e){
 
-    public void rodada(Equipe eqp, Equipe inim){
+            }
+        }
+        ativo = false;
+    }
+
+    public void rodada(Equipe eqp, Equipe inim) throws InterruptedException {
         Animal atacante, inimigo;
         atacante = eqp.primeiroAnimal();//já volto
         inimigo = inim.primeiroAnimal();
         if(mortoAl == true){
             System.out.println("Ativando efeitos do aliado "+atacante);
-            if(atacante.getClassificacao() == 3){
+            if (atacante.getClassificacao() == 3) {
                 atacante.IniciaTurno();
-            }else if(atacante.getClassificacao() == 1){
+            } else if (atacante.getClassificacao() == 1) {
                 atacante.IniciaTurno(eqp.getAnimais(), atacante);
-            }else{
+            } else {
                 atacante.IniciaTurno(inimigo);
             }
             mortoAl = false;
@@ -52,6 +67,7 @@ public class EstadoCombate {
         System.out.println(" e "+inimigo);
         System.out.println("Vida de "+atacante+" antes da batalha: "+atacante.getVida() + " " + atacante.getOverhealth());
         System.out.println("Vida de "+inimigo+" antes da batalha: "+inimigo.getVida() + " " + inimigo.getOverhealth());
+        Thread.sleep(500);
 
 
         atacante.Especial(inimigo);
@@ -62,7 +78,6 @@ public class EstadoCombate {
             mortoIn = true;
             System.out.println(inimigo + " morreu");
             morteinimcont++;
-            System.out.println(inimigo.isMorto());
         }
         atacante.LevaDano((Integer) inimigo.Ataque());
         if (atacante.getVida()<=0){
@@ -75,16 +90,21 @@ public class EstadoCombate {
 
         System.out.println("Vida de "+atacante+" após a batalha: "+atacante.getVida() + " " + atacante.getOverhealth());
         System.out.println("Vida de "+inimigo+" após a batalha: "+inimigo.getVida() + " " + inimigo.getOverhealth());
+        Thread.sleep(500);
 
         if (eqp.allMorto()){
             System.out.println("Sua equipe já era :(");
             System.out.println("O combate terminou");
-            terminaCombate();
+            qmganho = false;
+            Thread.sleep(1500);
+            terminaCombate(eqp);
         }
         if (inim.allMorto()){
             System.out.println("Todos os inimigos foram obliterados :)");
             System.out.println("O combate terminou");
-            terminaCombate();
+            qmganho = true;
+            Thread.sleep(1500);
+            terminaCombate(eqp);
         }
     }
     public void gravarMortes(String aliado, String inimigo) throws IOException {
@@ -103,6 +123,32 @@ public class EstadoCombate {
                    writer.close();
             }catch (IIOException e){
                 System.out.println("Fechando arquivo");
+            }
+        }
+    }
+    public void trocaEquipe(Equipe aliada, Equipe inimiga){
+        boolean dowhile = true;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("A equipe adversaria: ");
+        for(Animal e : inimiga.getAnimais()){
+            System.out.println(e);
+        }
+
+        while (dowhile) {
+            System.out.println("Deseja trocar posicao da sua equipe?");
+            String scan = scanner.nextLine();
+            switch (scan) {
+                case "S":
+                    aliada.imprimeEquipe();
+                    System.out.println("Insira as posicoes que deseja que sejam trocadas");
+                    int x = scanner.nextInt();
+                    int y = scanner.nextInt();
+                    aliada.alteraParty(x, y);
+                    break;
+                case "N":
+                    System.out.println("Oka");
+                    dowhile = false;
+                    break;
             }
         }
     }

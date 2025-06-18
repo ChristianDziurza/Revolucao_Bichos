@@ -7,6 +7,7 @@ public class Passaro extends Animal{
     @Override
     public void IniciaTurno() {
         int overhealthtotal = 0;
+        vidatotal = vida;
         try {
             if (getEquipamento().getClass() == ItemDefesa.class) {
                 overhealthtotal += getEquipamento().Efeito().intValue();
