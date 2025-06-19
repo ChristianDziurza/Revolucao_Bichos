@@ -22,6 +22,9 @@ public class ItemAtaque implements Item {
     }
 
     @Override
+    public void setPreco(int preco){this.preco = preco;}
+
+    @Override
     public String toString(){
         return nome;
     }

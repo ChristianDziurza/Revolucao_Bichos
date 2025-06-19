@@ -1,25 +1,23 @@
 import Animais.*;
 import Itens.TipoItem;
-import Jogo.Player;
-import Jogo.Torneio;
+import Jogo.*;
 
-import Jogo.Equipe;
-import Jogo.EstadoCombate;
-
+import java.io.IOException;
 import java.util.*;
 public class main {
-    public static void main(String[] args) throws InterruptedException {
-        int contadorRodada = 1;
+    public static void main(String[] args) throws InterruptedException, IOException {
         Player player = new Player();
-        Equipe equipe1 = new Equipe();//gabo, tecnicamente era pra funcionar
+        Equipe equipe1 = new Equipe();
         Equipe equipe2 = new Equipe();
         Torneio torneio = new Torneio(player, equipe1, equipe2);
+        Menu menu = new Menu(torneio);
+        try {
+            while (true) {
+                menu.Escolha();
+            }
+        }catch (Exception e){
 
-
-        torneio.iniciaTorneio();
-
-        System.out.println();
-
+        }
 
 
     }

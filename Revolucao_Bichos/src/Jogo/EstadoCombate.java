@@ -21,14 +21,21 @@ public class EstadoCombate {
         this.qmganho = qmganho;
     }
 
+    public int getMorteinimcont() {
+        return morteinimcont;
+    }
+
     public boolean isQmganho(){ return qmganho;}
     public boolean getAtivo(){
         return ativo;
     }
     public void terminaCombate(Equipe eqp){
+        mortoAl = true;
+        mortoIn = true;
         for(int i = 0; i<3; i++){
             try {
-                eqp.getAnimais()[i].setMorto(true);
+                eqp.getAnimais()[i].setMorto(false);
+                eqp.getAnimais()[i].fimDeUso();
             }catch (NullPointerException e){
 
             }
@@ -36,6 +43,14 @@ public class EstadoCombate {
         ativo = false;
     }
 
+    /**
+     * Esté método é responsável por todo o sistema de rodadas dos combates
+     * ele também é responsável por fazer a chamada das ativações dos efeitos
+     * dos animais, tanto inimigos quanto aliados. Todas as condições de
+     * chegagem para efeitos, dano e morte são feitas aqui
+     * @param eqp equipe do jogador
+     * @param inim equipe inimiga
+     */
     public void rodada(Equipe eqp, Equipe inim) throws InterruptedException {
         Animal atacante, inimigo;
         atacante = eqp.primeiroAnimal();//já volto
@@ -107,25 +122,7 @@ public class EstadoCombate {
             terminaCombate(eqp);
         }
     }
-    public void gravarMortes(String aliado, String inimigo) throws IOException {
-        BufferedWriter writer = null;
-        try{
-            writer = new BufferedWriter(new FileWriter("dados.txt",true));
-            writer.write(aliado);
-            writer.newLine();
-            writer.write(inimigo);
-            writer.newLine();
-        }catch(IIOException e){
-            System.out.println("Erro");
-        }finally {
-            try{
-               if(writer != null)
-                   writer.close();
-            }catch (IIOException e){
-                System.out.println("Fechando arquivo");
-            }
-        }
-    }
+
     public void trocaEquipe(Equipe aliada, Equipe inimiga){
         boolean dowhile = true;
         Scanner scanner = new Scanner(System.in);

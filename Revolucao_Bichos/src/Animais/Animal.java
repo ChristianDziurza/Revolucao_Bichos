@@ -3,12 +3,16 @@ import Itens.*;
 import java.util.*;
 
 public abstract class Animal {
-    int vida, overhealth, raridade, preco, classificacao, vidatotal;
+    int vida, overhealth, raridade, preco, classificacao, vidatotal, ataqueTotal, nivel=1;
     String nome;
     Number dano;
     boolean morto;
     Item equipamento;
     List<Consumivel> consumivel = new ArrayList<>();
+
+    public List<Consumivel> getConsumivel() {
+        return consumivel;
+    }
 
     public Item getEquipamento() {
         return equipamento;
@@ -46,6 +50,10 @@ public abstract class Animal {
 
     public void setClassificacao(int classificacao) {this.classificacao = classificacao;}
 
+    public int getNivel(){return nivel;}
+
+    public void setNivel(int nivel){this.nivel = nivel; vidatotal = vidatotal + (2*nivel); vida = vidatotal;}
+
     public void setOverhealth(int overhealth) {
         this.overhealth = overhealth;
     }
@@ -66,6 +74,10 @@ public abstract class Animal {
         return vida;
     }
 
+    public void setVidatotal(int vidatotal) {
+        this.vidatotal = vidatotal;
+    }
+
     public void setVida(int vida) {
         this.vida = vida;
     }
@@ -74,10 +86,14 @@ public abstract class Animal {
         this.consumivel.add((Consumivel) consumivel1);
     }
 
+    public void setAtaqueTotal(int ataqueTotal) {
+        this.ataqueTotal = ataqueTotal;
+    }
+
     public Number getDano() {return dano;}
 
     public Number Ataque(){
-        int danoTotal = dano.intValue();
+        int danoTotal = dano.intValue() + (2*getNivel());
         try {
             if (equipamento.getClass() == ItemAtaque.class) {//
                 danoTotal += equipamento.Efeito().intValue();
@@ -99,8 +115,50 @@ public abstract class Animal {
         return (Integer) danoTotal;
 
     }
-    public boolean Morte(){
+    public void fimDeUso(){
+        for (Consumivel consumivel1 : consumivel) {
+            if (consumivel1.geItemUso()) {
+                consumivel1.fimDeUso();
+            }
+        }
+    }
+    public void iniciaVida(){
+        int overhealthtotal = 0;
         vida = vidatotal;
+        dano = ataqueTotal;
+        try {
+            if (getEquipamento().getClass() == ItemDefesa.class) {
+                overhealthtotal += getEquipamento().Efeito().intValue();
+            }
+        }catch (NullPointerException e){
+
+        }
+        try {
+            for (Consumivel consumivel1 : consumivel) {
+                if (consumivel1.geItemUso()) {
+                    overhealthtotal += consumivel1.Efeito().intsValue()[1];
+                }
+            }
+        }catch(NullPointerException e){
+            System.out.println("Não tem consumivel");
+        }
+        setOverhealth(overhealthtotal);
+        System.out.println("Não");
+    }
+    public int checaSobreVida(int x) {
+        if (getOverhealth() > 0) {
+            int overheal = getOverhealth() - x;
+            if (overheal > 0) {
+                setOverhealth(overheal);
+                x = 0;
+            } else {
+                setOverhealth(0);
+                x = overheal * -1;
+            }
+        }
+        return x;
+    }
+    public boolean Morte(){
         morto = true;
         return morto;
     }

@@ -26,13 +26,5 @@ public class Player {
         this.dinheiro = dinheiro;
     }
 
-    public void criaArray(Equipe e1){
-        Animal[] animasi = new Animal[3];//oq q voce falo
-        TiposAnimais[] tipo = TiposAnimais.values();
-        for(int i = 0; i<3; i++){
-            Random rand = new Random();
-            animasi[i] = tipo[rand.nextInt(tipo.length)].criaAnimal();
-            e1.insereParty(i, animasi[i]);
-        }
-    }
+    
 }

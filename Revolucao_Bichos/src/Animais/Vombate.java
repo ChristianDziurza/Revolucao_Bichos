@@ -1,5 +1,6 @@
 package Animais;
 
+import Exceptions.MorteException;
 import Itens.Consumivel;
 import Itens.ItemDefesa;
 
@@ -7,7 +8,7 @@ public class Vombate extends Animal{
     @Override
     public void IniciaTurno() {
         int overhealthtotal = 0;
-        vidatotal = vida;
+        vida = vidatotal;
         try {
             if (getEquipamento().getClass() == ItemDefesa.class) {
                 overhealthtotal += getEquipamento().Efeito().intValue();
@@ -30,21 +31,25 @@ public class Vombate extends Animal{
 
     @Override
     public void LevaDano(int x) {
-        if(getOverhealth() > 0){
-            int overheal = getOverhealth() - x;
-            if(overheal > 0){
-                setOverhealth(overheal);
-                x=0;
-            }else {
-                setOverhealth(0);
-                x=overheal * -1;
+        try {
+            if (getOverhealth() > 0) {
+                int overheal = getOverhealth() - x;
+                if (overheal > 0) {
+                    setOverhealth(overheal);
+                    x = 0;
+                } else {
+                    setOverhealth(0);
+                    x = overheal * -1;
+                }
             }
-        }
-        int x2 = x/2;
-        if(x2<1)
-            x2 = 1;
-        setVida(getVida()-x2);
-        if(vida <= 0){
+            int x2 = x / 2;
+            if (x2 < 1)
+                x2 = 1;
+            setVida(getVida() - x2);
+            if (vida <= 0) {
+                throw new MorteException();
+            }
+        }catch (MorteException e){
             Morte();
         }
     }
@@ -53,6 +58,10 @@ public class Vombate extends Animal{
 
     @Override
     public void Especial(Animal inim){
-        inim.LevaDano(inim.Ataque().intValue()/2);
+        int x = inim.Ataque().intValue()/2;
+        if(x<1){
+            x = 1;
+        }
+        inim.LevaDano(x);
     }
 }

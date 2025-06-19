@@ -1,13 +1,14 @@
 package Animais;
 
 import Exceptions.MorteException;
-import Itens.Consumivel;
-import Itens.ItemDefesa;
 
-public class Passaro extends Animal{
+public class Peixe extends Animal{
     @Override
-    public void IniciaTurno() {
+    public void IniciaTurno(Animal inim) {
         iniciaVida();
+        if (!(inim.getDano().intValue()<=1)) {
+            inim.setDano(inim.getDano().intValue() - 1);
+        }
     }
 
     @Override
@@ -27,8 +28,5 @@ public class Passaro extends Animal{
     @Override
     public void Especial(Animal inim){
 
-        if (!(inim.getDano().intValue()<=1)) {
-            inim.setDano(inim.getDano().intValue() - 1);
-        }
     }
 }

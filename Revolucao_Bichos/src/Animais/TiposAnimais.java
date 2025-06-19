@@ -8,21 +8,38 @@ package Animais;
  */
 
 public enum TiposAnimais {
-    PASSARO(5, 3, 1, "Passaro", 3){
+    PASSARO(5, 3, 1, "Passaro", 3,2){
         @Override
         public Animal setAams() {
              return new Passaro();
         }
     },
-    //teste
-    DINOSSAURO(50, 1, 1, "Dinossauro", 1){
+    GAIVOTA(7, 2, 1, "Gaivota", 3,2){
+        @Override
+        public Animal setAams() {
+            return new Gaivota();
+        }
+    },
+    DINOSSAURO(50, 1, 3, "Dinossauro", 1,7){
         @Override
         public Animal setAams() {
             return new Dinossauro();
         }
     },
+    OVELHA(14, 2, 1, "Ovelha", 1,3){
+        @Override
+        public Animal setAams() {
+            return new Ovelha();
+        }
+    },
+    PEIXE(3, 1, 1, "Peixe", 2,1){
+        @Override
+        public Animal setAams() {
+            return new Peixe();
+        }
+    },
 
-    VOMBATE(20, 1, 1, "Vombate", 3){
+    VOMBATE(20, 1, 4, "Vombate", 3,10){
         @Override
         public Animal setAams() { return new Vombate(); }
     };
@@ -32,6 +49,7 @@ public enum TiposAnimais {
     private int dano;
     private int raridade;
     private int classificacao;
+    private int preco;
     private String nome;
     private Animal aams;
 
@@ -42,12 +60,13 @@ public enum TiposAnimais {
      * @param vida1 que definira vida
      * @param dano1 que definira dano
      */
-    TiposAnimais(int vida1, int dano1, int raridade, String nome, int classificacao){
+    TiposAnimais(int vida1, int dano1, int raridade, String nome, int classificacao, int preco){
         this.vida = vida1;
         this.dano = dano1;
         this.raridade = raridade;
         this.nome = nome;
         this.classificacao = classificacao;
+        this.preco = preco;
     }
 
     /**
@@ -72,7 +91,10 @@ public enum TiposAnimais {
         animal.setVida(vida);
         animal.setRaridade(raridade);
         animal.setNome(nome);
+        animal.setVidatotal(vida);
+        animal.setAtaqueTotal(dano);
         animal.setClassificacao(classificacao);
+        animal.setPreco(preco);
         return animal;
     }
 

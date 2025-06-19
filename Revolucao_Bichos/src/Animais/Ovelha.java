@@ -1,12 +1,10 @@
 package Animais;
 
 import Exceptions.MorteException;
-import Itens.Consumivel;
-import Itens.ItemDefesa;
 import Itens.TipoItem;
 
-//teste
-public class Dinossauro extends Animal{
+public class Ovelha extends Animal{
+
     @Override
     public void IniciaTurno(Animal[] animal, Animal pos){
         iniciaVida();
@@ -19,29 +17,28 @@ public class Dinossauro extends Animal{
         }
         if(j<2){
             try {
-                animal[j+1].addConsumivel(TipoItem.C_BANANA.criaItem());
-            }catch (NullPointerException e){}//é que assim, olha os animais que eu fiz, eles tao com um erro q eu nao sei oq é
+                animal[j+1].addConsumivel(TipoItem.C_COCO.criaItem());
+            }catch (NullPointerException e){
+
+            }
         }
     }
 
     @Override
-    public void LevaDano(int x) {
-        try {
+    public void LevaDano(int x){
+        try{
             x = checaSobreVida(x);
             setVida(vida-x);
             if(vida <= 0){
                 throw new MorteException();
             }
-        } catch (MorteException e) {
+        }catch (MorteException e){
             Morte();
         }
-
     }
 
-
-
     @Override
-    public void Especial(Animal inim){
+    public void Especial(Animal inim) {
 
     }
 }

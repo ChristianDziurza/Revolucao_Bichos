@@ -95,15 +95,12 @@ public class Loja {
                         semException = false;
                     }
                 }
-                Item sa = equipe.getAnimais()[val2].getEquipamento();
                 if (equipamento[val].getClass() == Consumivel.class) {
                     equipe.insereConsumivel(val2, (Consumivel) equipamento[val]);
                     equipamento[val] = null;
                 } else {
                     equipe.insereEquipamento(val2, equipamento[val]);
-                    if(sa == null){
-                        equipamento[val] = null;
-                    }
+                    equipamento[val] = null;
 
                 }
 

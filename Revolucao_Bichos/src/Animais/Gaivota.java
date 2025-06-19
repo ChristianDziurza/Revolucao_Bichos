@@ -4,14 +4,15 @@ import Exceptions.MorteException;
 import Itens.Consumivel;
 import Itens.ItemDefesa;
 
-public class Passaro extends Animal{
+public class Gaivota extends Animal{
+    private int contador=0;
     @Override
-    public void IniciaTurno() {
+    public void IniciaTurno(){
         iniciaVida();
     }
 
     @Override
-    public void LevaDano(int x) {//ata
+    public void LevaDano(int x){
         try{
             x = checaSobreVida(x);
             setVida(vida-x);
@@ -23,12 +24,12 @@ public class Passaro extends Animal{
         }
     }
 
-
     @Override
-    public void Especial(Animal inim){
-
-        if (!(inim.getDano().intValue()<=1)) {
-            inim.setDano(inim.getDano().intValue() - 1);
+    public void Especial(Animal inim) {
+        contador++;
+        if(contador >=2){
+            setOverhealth(2);
+            contador=0;
         }
     }
 }

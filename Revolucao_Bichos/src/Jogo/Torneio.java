@@ -3,6 +3,7 @@ package Jogo;
 import Animais.Animal;
 import Animais.TiposAnimais;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -14,16 +15,21 @@ public class Torneio {
     private EstadoCombate combate = new EstadoCombate();
     private Player player;
     private Equipe equipe;
-    private Equipe equipeIn = new Equipe();
+    private Equipe equipeIn;
+    private Estatistica estatistica = new Estatistica();
     Scanner scan = new Scanner(System.in);
 
     public Torneio(Player player, Equipe equipe, Equipe equipe2){
         this.player = player;
         this.equipe = equipe;
-        player.criaArray(equipe2);
+        equipe2.inserePartyNormal();
         equipeIn = equipe2;
 
     }
+    /**
+     * Este método é responsável por trocar o estado do jogo
+     * ele troca entre os estados de combate e loja
+     */
 
     public void trocaEstado(){
         if(estado)
@@ -32,22 +38,23 @@ public class Torneio {
             estado = true;
     }
 
-    public void iniciaTorneio() throws InterruptedException {
+    public void iniciaTorneio() throws InterruptedException, IOException {
         contadorRodada = 1;
-        player.ganhaDinheiro(4);
+
+        player.ganhaDinheiro(7);
         loja = new Loja(player);
-        clearConsole();
+        Ui.clearConsole();
         estadoLoja();
         loopTorneio();
 
     }
-    public void loopTorneio() throws InterruptedException {
+    public void loopTorneio() throws InterruptedException, IOException {
         int contando = 0;
 
         while(contando/2 < 3 && combate.isQmganho()) {
             contando++;
+            equipeIn.inserePartyNormal();
             if (estado) {
-                player.criaArray(equipeIn);
                 player.ganhaDinheiro(4);
                 loja = new Loja(player);
                 estadoLoja();
@@ -58,27 +65,30 @@ public class Torneio {
                     System.out.println("Rodada " + contadorRodada);
                     combate.rodada(equipe, equipeIn);
                     contadorRodada++;
-                    clearConsole();
+                    Ui.clearConsole();
                 }
+                estatistica.addInimAbatidos(combate.getMorteinimcont() - estatistica.getInimAbatidos());
+                System.out.println(estatistica.getInimAbatidos());
                 trocaEstado();
             }
         }
         fimDeJogo(combate.isQmganho());
+        equipe.apagaParty();
         combate.setQmganho(true);
-        iniciaTorneio();
     }
 
-    public void fimDeJogo(boolean qmGanho){
+    public void fimDeJogo(boolean qmGanho) throws IOException {
         if(qmGanho){
-            System.out.println("SUA EQUIEP VENCEU!!!!!!");
+            System.out.println("SUA EQUIPE VENCEU!!!!!!");
         }else{
             System.out.println("SUA EQUIPE PERDEU!!!!!");
             player.setDinheiro(0);
         }
+        estatistica.Update();
     }
 
 
-    public void estadoLoja(){
+    public void estadoLoja() throws InterruptedException {
         while (estado) {
             loja.mostraLoja();
             loja.opcoesLoja();
@@ -96,21 +106,16 @@ public class Torneio {
                 case "R":
                     loja.refresh();
                     break;
+                case "E":
+                    equipe.imprimeEquipe();
+                    Thread.sleep(3000);
+                    break;
+
             }
-            clearConsole();
+            Ui.clearConsole();
         }
     }
-    public final static void clearConsole()
-    {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                Runtime.getRuntime().exec("clear");
-            }
-        } catch (Exception e) {
-            System.out.println("Error clearing the console: " + e.getMessage());
-        }
-    }
+
+
 
 }
