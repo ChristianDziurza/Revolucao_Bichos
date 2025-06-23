@@ -3,7 +3,7 @@ import Itens.*;
 import java.util.*;
 
 public abstract class Animal {
-    int vida, overhealth, raridade, preco, classificacao, vidatotal, ataqueTotal, nivel=1;
+    int vida, overhealth, raridade, preco, classificacao, vidatotal, ataqueTotal, nivel;
     String nome;
     Number dano;
     boolean morto;
@@ -104,12 +104,10 @@ public abstract class Animal {
         try {
             for (Consumivel consumivel1 : consumivel) {
                 if (consumivel1.geItemUso()) {
-                    System.out.println("TEM CONSUMIVEL");
                     danoTotal += consumivel1.Efeito().intsValue()[0];
                 }
             }
         }catch(NullPointerException e){
-            System.out.println("Não tem consumivel");
         }
 
         return (Integer) danoTotal;
@@ -140,7 +138,6 @@ public abstract class Animal {
                 }
             }
         }catch(NullPointerException e){
-            System.out.println("Não tem consumivel");
         }
         setOverhealth(overhealthtotal);
         System.out.println("Não");

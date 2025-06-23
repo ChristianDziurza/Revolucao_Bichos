@@ -42,6 +42,7 @@ public class Torneio {
         contadorRodada = 1;
 
         player.ganhaDinheiro(7);
+        estatistica.addDinTotal(7);
         loja = new Loja(player);
         Ui.clearConsole();
         estadoLoja();
@@ -56,6 +57,7 @@ public class Torneio {
             equipeIn.inserePartyNormal();
             if (estado) {
                 player.ganhaDinheiro(4);
+                estatistica.addDinTotal(4);
                 loja = new Loja(player);
                 estadoLoja();
             } else {
@@ -67,14 +69,19 @@ public class Torneio {
                     contadorRodada++;
                     Ui.clearConsole();
                 }
-                estatistica.addInimAbatidos(combate.getMorteinimcont() - estatistica.getInimAbatidos());
-                System.out.println(estatistica.getInimAbatidos());
+                estatistica.setAnimaisMorto(combate.getMortecont());
+                estatistica.addInimAbatidos(combate.getMorteinimcont());
+                combate.setMorteinimcont(0);
+                combate.setMortecont(0);
                 trocaEstado();
             }
         }
+        estatistica.addEstMortes(1);
         fimDeJogo(combate.isQmganho());
+        Thread.sleep(1750);
         equipe.apagaParty();
         combate.setQmganho(true);
+
     }
 
     public void fimDeJogo(boolean qmGanho) throws IOException {
@@ -91,17 +98,19 @@ public class Torneio {
     public void estadoLoja() throws InterruptedException {
         while (estado) {
             loja.mostraLoja();
-            loja.opcoesLoja();
+            Ui.opcoesLoja();
             c = scan.nextLine();
             switch (c) {
                 case "A":
                     loja.compraAnimal(equipe, player);
+                    Thread.sleep(2000);
                     break;
                 case "P":
                     trocaEstado();
                     break;
                 case "I":
                     loja.compraEquipamento(equipe, player);
+                    Thread.sleep(2000);
                     break;
                 case "R":
                     loja.refresh();
@@ -110,7 +119,10 @@ public class Torneio {
                     equipe.imprimeEquipe();
                     Thread.sleep(3000);
                     break;
-
+                case "S":
+                    loja.VenderAnimal(equipe, player);
+                    Thread.sleep(2000);
+                    break;
             }
             Ui.clearConsole();
         }

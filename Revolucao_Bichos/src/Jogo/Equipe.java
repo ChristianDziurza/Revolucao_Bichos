@@ -70,8 +70,8 @@ public class Equipe {
                 if(animais[i].getClass() == animal.getClass()){
                     System.out.println("Gostaria de melhorar o animal: " + animais[i]);
                     String scan = scanner.nextLine();
-                    if(scan == "S" || scan == "s"){
-                        animais[pos].setNivel(animal.getNivel()+1);
+                    if(scan.equals("S") || scan.equals("s")){
+                        animais[i].setNivel((animais[i].getNivel() + 1));
                         remover = false;
                     }
                 }
@@ -101,7 +101,7 @@ public class Equipe {
                         animais[pos] = animal;
                         System.out.println("Animal inserido com sucesso!!!!");
                     } else if (animais[pos].getClass() == animal.getClass()){
-                        animais[pos].setNivel(animal.getNivel()+1);
+                        animais[pos].setNivel(animais[pos].getNivel()+1);
                         System.out.println("Nivel do animal aumentado");
                     }else {
                         System.out.println("Ja esta ocupado");
@@ -177,27 +177,25 @@ public class Equipe {
      * @param pos posição do animal que vai ser retirado
      */
     public void removeParty(int pos) {
-        if (maisDeUm()) {
-            boolean semExecption = false;
-            while (!semExecption) {
-                semExecption = true;
-                /**
-                 * Faz a verificação se foi inserido um número certo.
-                 * @exception ArrayIndexOutOfBoundsException
-                 */
-                try {
-                    animais[pos] = null;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("O valor de pos2 está fora do escopo!!!!\n" + "Insira um novo valor:");
-                    Scanner scanner = new Scanner(System.in);
-                    pos = scanner.nextInt();
-                    semExecption = false;
-                }
+
+        boolean semExecption = false;
+        while (!semExecption) {
+            semExecption = true;
+            /**
+            * Faz a verificação se foi inserido um número certo.
+            * @exception ArrayIndexOutOfBoundsException
+            */
+            try {
+                animais[pos] = null;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("O valor da posição está fora do escopo!!!!\n" + "Insira um novo valor:");
+                Scanner scanner = new Scanner(System.in);
+                pos = scanner.nextInt();
+                semExecption = false;
             }
-            System.out.println("Animal deletado");
-        } else {
-            System.out.println("Não tem o suficiente");
         }
+        System.out.println("Animal vendido");
+
     }
 
     /**
@@ -271,7 +269,7 @@ public class Equipe {
      */
     public void imprimeEquipe() {
 
-        for (Animal as : animais) {
+        for (int i = 0; i<3; i++) {
             /**
              * Faz a verificação se foi inserido um número certo e se o animal é nulo.
              * @exception ArrayIndexOutOfBoundsException
@@ -279,18 +277,18 @@ public class Equipe {
              */
             try {
                 System.out.print("Animal: ");
-                System.out.println(as);
-                System.out.println("Vida: "+as.getVida());
+                System.out.println(animais[i]);
+                System.out.println("Vida: "+animais[i].getVida());
                 System.out.print("Nível: ");
-                System.out.println(as.getNivel());
-                for(Consumivel cos: as.getConsumivel()){
+                System.out.println(animais[i].getNivel());
+                for(Consumivel cos: animais[i].getConsumivel()){
                     if(cos.geItemUso())//
                         System.out.println("Consumível: " + cos);
                 }
                 System.out.print("Equipamento: ");
-                if (as.getEquipamento() == null)
+                if (animais[i].getEquipamento() == null)
                     throw new ItemNuloException();
-                System.out.println(as.getEquipamento());
+                System.out.println(animais[i].getEquipamento());
             } catch (NullPointerException e) {
                 System.out.println("Não tem ninguém");
             } catch (ItemNuloException e) {
@@ -367,12 +365,22 @@ public class Equipe {
     }
 
     public void inserePartyNormal() {
-        Animal[] animasi = new Animal[3];//oq q voce falo
+        Animal[] animasi = new Animal[3];
+        boolean animalPossivel = true;
         TiposAnimais[] tipo = TiposAnimais.values();
+        apagaParty();
         for(int i = 0; i<3; i++){
             Random rand = new Random();
-            animasi[i] = tipo[rand.nextInt(tipo.length)].criaAnimal();
-            animais[i] = animasi[i];
+
+            if(animalPossivel) {
+                animasi[i] = tipo[rand.nextInt(tipo.length)].criaAnimal();
+                animais[i] = animasi[i];
+            }
+            if(rand.nextInt(2) == 0){
+                animalPossivel = false;
+            }else{
+                animalPossivel = true;
+            }
         }
     }
 

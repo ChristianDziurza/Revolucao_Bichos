@@ -1,0 +1,1 @@
+java -jar F:\Documentos\Revolução-dos-Bichos\out\artifacts\Revolução_dos_Bichos_jar revolução-dos-bichos_jar.jar

@@ -9,6 +9,16 @@ public class Ui {
         System.out.println("\t\t\t\t  2.Estátisticas");
         System.out.println("\t\t\t\t  3.Sair");
     }
+    public static void opcoesLoja(){
+        System.out.println("O que você vai fazer?");
+        System.out.print("A - Comprar Animal\t\t");
+        System.out.println("I - Comprar Item");
+        System.out.print("S - Vender animal\t\t");
+        System.out.println("R - Para atualizar a loja");
+        System.out.print("E - Ver equipe\t\t\t");
+        System.out.println("P - Ir para o próximo combate");
+
+    }
     public final static void clearConsole()
     {
         try {

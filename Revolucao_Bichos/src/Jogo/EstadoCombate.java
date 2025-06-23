@@ -17,8 +17,20 @@ public class EstadoCombate {
         ativo = true;
     }
 
+    public void setMorteinimcont(int morteinimcont) {
+        this.morteinimcont = morteinimcont;
+    }
+
+    public void setMortecont(int mortecont) {
+        this.mortecont = mortecont;
+    }
+
     public void setQmganho(boolean qmganho) {
         this.qmganho = qmganho;
+    }
+
+    public int getMortecont() {
+        return mortecont;
     }
 
     public int getMorteinimcont() {
@@ -82,7 +94,7 @@ public class EstadoCombate {
         System.out.println(" e "+inimigo);
         System.out.println("Vida de "+atacante+" antes da batalha: "+atacante.getVida() + " " + atacante.getOverhealth());
         System.out.println("Vida de "+inimigo+" antes da batalha: "+inimigo.getVida() + " " + inimigo.getOverhealth());
-        Thread.sleep(500);
+        Thread.sleep(750);
 
 
         atacante.Especial(inimigo);
@@ -105,7 +117,7 @@ public class EstadoCombate {
 
         System.out.println("Vida de "+atacante+" após a batalha: "+atacante.getVida() + " " + atacante.getOverhealth());
         System.out.println("Vida de "+inimigo+" após a batalha: "+inimigo.getVida() + " " + inimigo.getOverhealth());
-        Thread.sleep(500);
+        Thread.sleep(750);
 
         if (eqp.allMorto()){
             System.out.println("Sua equipe já era :(");
@@ -128,7 +140,11 @@ public class EstadoCombate {
         Scanner scanner = new Scanner(System.in);
         System.out.println("A equipe adversaria: ");
         for(Animal e : inimiga.getAnimais()){
-            System.out.println(e);
+            if(e != null) {
+                System.out.println(e);
+            }else{
+                System.out.println("X");
+            }
         }
 
         while (dowhile) {

@@ -20,12 +20,12 @@ public class Loja {
         boolean semException=false;
         Scanner scanner = new Scanner(System.in);
         while(!semException || (val < 0 && val > 1)) {
-            System.out.println("Seleciona o animal: ");
+            System.out.println("Seleciona o animal (0 ou 1): ");
             semException=true;
             try {
                 val = scanner.nextInt();//mas eu faço
             } catch (InputMismatchException e) {
-                System.out.println("Insira numero");
+                System.out.println("Insira a posição do animal na sua equipe");
                 val = -1;
                 semException = false;
             }
@@ -38,7 +38,7 @@ public class Loja {
                 semException = false;
                 player.gastaDinheiro(animais[val].getPreco());
                 while (!semException || (val2 < 0 && val2 > 2)) {
-                    System.out.println("Seleciona o espaço da equipe: ");
+                    System.out.println("Seleciona o espaço da equipe (0 a 2): ");
                     semException = true;
                     try {
                         val2 = scanner.nextInt();
@@ -48,34 +48,34 @@ public class Loja {
                         semException = false;
                     }
                 }
-                Animal anima = equipe.getAnimais()[2];
                 equipe.insereParty(val2, animais[val]);
-                if(anima == null){
-                    animais[val] = null;
-                }
+                animais[val] = null;
+
             }
         }catch (NullPointerException e){
-            System.out.println("Este animal nao esta disponivel");
+            System.out.println("Este animal não está disponivel");
             semException = false;
         }catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("Este animal nao esta disponivel");
+            System.out.println("Este animal não está disponivel");
             semException = false;
         }
 
     }
     public void compraEquipamento(Equipe equipe, Player p1){
-        int val = 0, val2 = 0, dinheiro;
+        int val = 0, val2 = 0;
         boolean semException=false;
         Scanner scanner = new Scanner(System.in);
         while(!semException || (val < 0 && val > 2)) {
-            System.out.println("Seleciona o item: ");
+            System.out.println("Seleciona o item(0 a 2): ");
             semException=true;
             try {
                 val = scanner.nextInt();//ata
             } catch (InputMismatchException e) {
-                System.out.println("Insira numero");
+                System.out.println("Insira a posição do animal que irá receber o item");
                 val = -1;
                 semException = false;
+            } catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Nao tem item ai");
             }
         }
         try{
@@ -90,7 +90,7 @@ public class Loja {
                     try {
                         val2 = scanner.nextInt();
                     } catch (InputMismatchException e) {
-                        System.out.println("Insira numero");
+                        System.out.println("Insira a posição do animal que irá receber o item");
                         val2 = -1;
                         semException = false;
                     }
@@ -116,46 +116,60 @@ public class Loja {
         System.out.println("Dinheiro atual $: " + player.getDinheiro());
         for(Animal animis: animais){
             try{
-                System.out.println(animis + "\t: " + animis.getPreco());
+                System.out.println(animis + " \t: " + animis.getPreco());
             }catch (NullPointerException e){
-                System.out.println("X\t: X");
+                System.out.println("X       \t: X");
             }
         }
         for (Item item : equipamento){
             try {
-                System.out.println(item + "\t: " + item.getPreco());
+                System.out.println(item + " \t: " + item.getPreco());
             }catch (NullPointerException e){
-                System.out.println("X\t: X");
+                System.out.println("X       \t: X");
             }
         }
     }
-    public void opcoesLoja(){
-        System.out.println("O que você vai fazer?");
-        System.out.println("A - Comprar Animal");
-        System.out.println("I - Comprar Item");
-        System.out.println("R - Para atualizar a loja");
-        System.out.println("P - Ir para o próximo combate");
 
-    }
 
     public void refresh() {
         TiposAnimais[] tipo1 = TiposAnimais.values();
         TipoItem[] tipo2 = TipoItem.values();
         for (int i = 0; i < 2; i++) {
             Random rand = new Random();
-            if(rand.nextInt(100) <60) {
+            if(rand.nextInt(100) > 70) {
                 do {
                     animais[i] = tipo1[rand.nextInt(tipo1.length)].criaAnimal();
-                } while (animais[i].getRaridade() != 1);
+                } while (animais[i].getRaridade() == 1);
             }
             else{
-                animais[i] = tipo1[rand.nextInt(tipo1.length)].criaAnimal();
+                do {
+                    animais[i] = tipo1[rand.nextInt(tipo1.length)].criaAnimal();
+                }while (animais[i].getRaridade() != 1);
             }
 
         }
         for(int i = 0; i<3; i++){
             Random rand = new Random();
             equipamento[i] = tipo2[rand.nextInt(tipo2.length)].criaItem();
+        }
+    }
+
+    public void VenderAnimal(Equipe equipe, Player player){
+        int val;
+        Scanner scanner = new Scanner(System.in);
+
+        equipe.imprimeEquipe();
+        try {
+            int dinheiro;
+            System.out.println("Escolha um animal(0 ou 1):");
+            val = scanner.nextInt();
+            dinheiro = (int) (equipe.getAnimais()[val].getPreco() * 0.7);
+            equipe.removeParty(val);
+            player.ganhaDinheiro(dinheiro);
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Não tem esse animal");
+        }catch (InputMismatchException e){
+            System.out.println("Caractere invalido");
         }
     }
 }

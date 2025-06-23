@@ -20,15 +20,12 @@ public class Menu {
                 torneio.iniciaTorneio();
                 break;
             case "2":
-                //Estatisticas();
+                Estatistica as = new Estatistica();
+                as.Escreve();
                 break;
             case "3":
                 throw new RuntimeException() ;
         }
     }
-    /*
-    public void Estatisticas(){
 
-    }
-     */
 }

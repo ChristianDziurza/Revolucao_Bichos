@@ -8,13 +8,13 @@ package Animais;
  */
 
 public enum TiposAnimais {
-    PASSARO(5, 3, 1, "Passaro", 3,2){
+    PASSARO(5, 3, 1, "Passaro  ", 3,2){
         @Override
         public Animal setAams() {
              return new Passaro();
         }
     },
-    GAIVOTA(7, 2, 1, "Gaivota", 3,2){
+    GAIVOTA(7, 2, 1, "Gaivota  ", 3,2){
         @Override
         public Animal setAams() {
             return new Gaivota();
@@ -26,13 +26,13 @@ public enum TiposAnimais {
             return new Dinossauro();
         }
     },
-    OVELHA(14, 2, 1, "Ovelha", 1,3){
+    OVELHA(14, 2, 1, "Ovelha  ", 1,3){
         @Override
         public Animal setAams() {
             return new Ovelha();
         }
     },
-    PEIXE(3, 1, 1, "Peixe", 2,1){
+    PEIXE(3, 1, 1, "Peixe   ", 2,1){
         @Override
         public Animal setAams() {
             return new Peixe();
@@ -95,6 +95,7 @@ public enum TiposAnimais {
         animal.setAtaqueTotal(dano);
         animal.setClassificacao(classificacao);
         animal.setPreco(preco);
+        animal.setNivel(1);
         return animal;
     }
 
