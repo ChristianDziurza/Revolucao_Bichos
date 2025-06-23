@@ -1,8 +1,6 @@
-package Animais;
+package Jogo.Animais;
 
-import Exceptions.MorteException;
-import Itens.Consumivel;
-import Itens.ItemDefesa;
+import Jogo.Exceptions.MorteException;
 
 public class Passaro extends Animal{
     @Override

@@ -1,11 +1,7 @@
 package Jogo;
 
-import Animais.*;
+import Jogo.Animais.*;
 
-import javax.imageio.IIOException;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class EstadoCombate {

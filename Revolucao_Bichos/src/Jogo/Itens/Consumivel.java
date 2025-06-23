@@ -1,4 +1,4 @@
-package Itens;
+package Jogo.Itens;
 
 import Jogo.Inteiros;
 

@@ -1,4 +1,4 @@
-package Itens;//entendi
+package Jogo.Itens;//entendi
 
 public interface Item {
     public Number Efeito();

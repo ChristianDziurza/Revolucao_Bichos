@@ -1,7 +1,7 @@
 package Jogo;//voltei
 
-import Animais.*;
-import Itens.*;
+import Jogo.Animais.*;
+import Jogo.Itens.*;
 
 import java.util.*;
 

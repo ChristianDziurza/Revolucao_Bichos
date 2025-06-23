@@ -1,4 +1,4 @@
-package Animais;
+package Jogo.Animais;
 
 /**
  * Este Enum é utilizado para a geração de animais de uma maneira

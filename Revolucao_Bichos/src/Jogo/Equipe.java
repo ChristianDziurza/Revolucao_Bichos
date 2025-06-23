@@ -1,11 +1,10 @@
 package Jogo;
-import Animais.*;
-import Exceptions.AnimalNuloException;
-import Exceptions.EstouraWhileException;
-import Exceptions.ItemNuloException;
-import Itens.*;
+import Jogo.Animais.*;
+import Jogo.Exceptions.AnimalNuloException;
+import Jogo.Exceptions.EstouraWhileException;
+import Jogo.Exceptions.ItemNuloException;
+import Jogo.Itens.*;
 
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -162,7 +161,7 @@ public class Equipe {
                     semExecption1 = false;
                 }
             }
-            System.out.println("Animais reposicionados");
+            System.out.println("Jogo.Animais reposicionados");
         } else {
             System.out.println("Não tem animais o suficiente");
         }

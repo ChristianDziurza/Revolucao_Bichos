@@ -1,8 +1,9 @@
-package Animais;
-import Itens.*;
+package Jogo.Animais;
+import Jogo.Equipe;
+import Jogo.Itens.*;
 import java.util.*;
 
-public abstract class Animal {
+public abstract class Animal extends Equipe {
     int vida, overhealth, raridade, preco, classificacao, vidatotal, ataqueTotal, nivel;
     String nome;
     Number dano;

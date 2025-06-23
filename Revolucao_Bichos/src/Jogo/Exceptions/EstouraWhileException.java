@@ -1,4 +1,4 @@
-package Exceptions;
+package Jogo.Exceptions;
 
 public class EstouraWhileException extends Exception{
     @Override

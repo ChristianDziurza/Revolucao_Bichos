@@ -1,4 +1,4 @@
-package Itens;
+package Jogo.Itens;
 
 public class ItemAtaque implements Item {
     private int dano, preco;

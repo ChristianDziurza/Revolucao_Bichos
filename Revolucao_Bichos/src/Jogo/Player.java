@@ -1,10 +1,5 @@
 package Jogo;
 
-import Animais.Animal;
-import Animais.TiposAnimais;
-
-import java.util.Random;
-
 public class Player {
     private int dinheiro;
 

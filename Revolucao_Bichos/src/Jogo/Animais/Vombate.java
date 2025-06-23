@@ -1,8 +1,8 @@
-package Animais;
+package Jogo.Animais;
 
-import Exceptions.MorteException;
-import Itens.Consumivel;
-import Itens.ItemDefesa;
+import Jogo.Exceptions.MorteException;
+import Jogo.Itens.Consumivel;
+import Jogo.Itens.ItemDefesa;
 
 public class Vombate extends Animal{
     @Override

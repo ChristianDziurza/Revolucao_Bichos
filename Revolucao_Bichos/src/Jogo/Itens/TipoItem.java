@@ -1,4 +1,4 @@
-package Itens;
+package Jogo.Itens;
 
 public enum TipoItem {
     C_BANANA(3, 0, 2){

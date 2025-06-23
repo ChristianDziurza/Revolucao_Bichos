@@ -1,6 +1,6 @@
-package Animais;
+package Jogo.Animais;
 
-import Exceptions.MorteException;
+import Jogo.Exceptions.MorteException;
 
 public class Peixe extends Animal{
     @Override

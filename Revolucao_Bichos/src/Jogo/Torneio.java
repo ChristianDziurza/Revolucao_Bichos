@@ -1,10 +1,6 @@
 package Jogo;
 
-import Animais.Animal;
-import Animais.TiposAnimais;
-
 import java.io.IOException;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Torneio {
